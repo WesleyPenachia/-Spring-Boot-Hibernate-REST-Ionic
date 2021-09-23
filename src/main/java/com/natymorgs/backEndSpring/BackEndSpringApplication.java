@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.natymorgs.backEndSpring.domain.Categoria;
 import com.natymorgs.backEndSpring.domain.Cidade;
+import com.natymorgs.backEndSpring.domain.Cliente;
+import com.natymorgs.backEndSpring.domain.Endereco;
 import com.natymorgs.backEndSpring.domain.Estado;
 import com.natymorgs.backEndSpring.domain.Produto;
+import com.natymorgs.backEndSpring.domain.enums.TipoCliente;
 import com.natymorgs.backEndSpring.repositories.CategoriaRepository;
 import com.natymorgs.backEndSpring.repositories.CidadeRepository;
+import com.natymorgs.backEndSpring.repositories.ClienteRepository;
+import com.natymorgs.backEndSpring.repositories.EnderecoRepository;
 import com.natymorgs.backEndSpring.repositories.EstadoRepository;
 import com.natymorgs.backEndSpring.repositories.ProdutoRepository;
 
@@ -30,6 +35,12 @@ public class BackEndSpringApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CidadeRepository cidaderepository;
+	
+	@Autowired
+	private ClienteRepository clienterepository;
+	
+	@Autowired
+	private EnderecoRepository enderecorepository;
 	
 	
 	public static void main(String[] args) {
@@ -68,6 +79,21 @@ public class BackEndSpringApplication implements CommandLineRunner {
 		
 		estadorepository.saveAll(Arrays.asList(est1, est2));
 		cidaderepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente(null, "Maria", "maria@hotmail.com", "232232323233",TipoCliente.PESSOAFISICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("1231321313", "1123412341234"));
+		
+		Endereco e1 = new Endereco(null, "Rua teste", "12", "casa", "Centro", "37750000", cli1, c1);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1));
+		
+		clienterepository.saveAll(Arrays.asList(cli1));
+		
+		enderecorepository.saveAll(Arrays.asList(e1));
+		
+		
+		
 	}
 
 }
