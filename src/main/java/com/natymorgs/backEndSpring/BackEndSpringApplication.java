@@ -13,6 +13,7 @@ import com.natymorgs.backEndSpring.domain.Cidade;
 import com.natymorgs.backEndSpring.domain.Cliente;
 import com.natymorgs.backEndSpring.domain.Endereco;
 import com.natymorgs.backEndSpring.domain.Estado;
+import com.natymorgs.backEndSpring.domain.ItemPedido;
 import com.natymorgs.backEndSpring.domain.Pagamento;
 import com.natymorgs.backEndSpring.domain.PagamentoComBoleto;
 import com.natymorgs.backEndSpring.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.natymorgs.backEndSpring.repositories.CidadeRepository;
 import com.natymorgs.backEndSpring.repositories.ClienteRepository;
 import com.natymorgs.backEndSpring.repositories.EnderecoRepository;
 import com.natymorgs.backEndSpring.repositories.EstadoRepository;
+import com.natymorgs.backEndSpring.repositories.ItemPedidoRepository;
 import com.natymorgs.backEndSpring.repositories.PagamentoRepository;
 import com.natymorgs.backEndSpring.repositories.PedidoRepository;
 import com.natymorgs.backEndSpring.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class BackEndSpringApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(BackEndSpringApplication.class, args);
@@ -121,6 +126,15 @@ public class BackEndSpringApplication implements CommandLineRunner {
 		
 		pagamentoRepository.saveAll(Arrays.asList(pgt1, pgt2));
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		
+		ped1.getItems().addAll(Arrays.asList(ip1, ip2));
+		
+		p1.getItems().addAll(Arrays.asList(ip1));
+		p2.getItems().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2));
 		
 	}
 
