@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.natymorgs.backEndSpring.domain.Categoria;
 
+
+
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{	
 
